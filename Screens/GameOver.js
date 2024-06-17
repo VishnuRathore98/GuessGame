@@ -1,68 +1,61 @@
 import { View, Text, Image, Button, StyleSheet } from "react-native";
+import PrimaryButton from "../components/PrimaryButton";
+import Title from "../components/ui/Title";
+import Colors from "../constants/colors";
 
-function GameOver(params) {
+function GameOver({attempts, numberToGuess, startNewGame}) {
   return (
     <View style={styles.rootContainer}>
-      <View style={[styles.container]}>
-        <Text style={[styles.titleText, styles.headingContainer]}>
-          Game Over!
-        </Text>
-      </View>
-      <View style={[styles.summaryContainer, styles.container]}>
+      
+      <Title>Game Over!</Title>
+        
+      
+      <View style={[styles.imageContainer]}>
         <Image
           style={styles.image}
           source={require("../assets/images/success.png")}
         />
-
+        </View>
         <Text style={styles.summaryText}>
-          Your phone needed X turns to guess the number Y.
+          Your phone needed <Text style={styles.highlight}>{attempts}</Text> turns to guess the number <Text style={styles.highlight}>{numberToGuess}</Text>.
         </Text>
 
-        <View style={[styles.restartButton]}>
-          <Button title="Start New Game" />
+        
+          <PrimaryButton onPress={startNewGame}>Start New Game</PrimaryButton>
+          
         </View>
-      </View>
-    </View>
+      
   );
 }
-
 const styles = StyleSheet.create({
   rootContainer: {
-
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  headingContainer: {
-    padding: 6,
-    borderWidth: 1,
-  },
-  container: {
-    marginVertical: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  summaryContainer: {
-    borderWidth:1,
-    // padding:6,
-    height:400,
-  },
-  titleText: {
-    marginVertical: 8,
-    textAlign: "center",
-    fontSize: 24,
-    fontWeight: "bold",
+  imageContainer: {
+    width: 300,
+    height: 300,
+    borderRadius: 150,
+    borderWidth: 3,
+    borderColor: Colors.primary800,
+    overflow: 'hidden',
+    margin: 36,
   },
   image: {
-    borderWidth: 2,
-    borderColor: "black",
-    height: 200,
-    width: 200,
-    borderRadius: 100,
+    width: '100%',
+    height: '100%',
   },
   summaryText: {
-    padding: 14,
-    textAlign: "center",
-    fontSize: 18,
+    fontFamily: 'open-sans',
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 24,
   },
-  restartButton: {},
+  highlight: {
+    fontFamily: 'open-sans-bold',
+    color: Colors.primary500,
+  },
 });
-
 export default GameOver;
